@@ -6,6 +6,7 @@ import (
 
 	"github.com/acheong08/DuckDuckGo-API/duckduckgo"
 	"github.com/acheong08/DuckDuckGo-API/typings"
+	"github.com/k3a/html2text"
 )
 
 func Search(search typings.Search) ([]typings.Result, error) {
@@ -20,5 +21,9 @@ func Crawl(url string) (string, error) {
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
-	return string(body), err
+	if err != nil {
+		return "", err
+	}
+	text_result := html2text.HTML2Text(string(body))
+	return text_result, nil
 }
