@@ -3,6 +3,7 @@ package crawler
 import (
 	"io"
 	"net/http"
+	"strings"
 
 	md "github.com/JohannesKaufmann/html-to-markdown"
 	"github.com/acheong08/DuckDuckGo-API/duckduckgo"
@@ -27,5 +28,5 @@ func Crawl(url string) (string, error) {
 		return "", err
 	}
 	markdown, err := converter.ConvertString(string(body))
-	return markdown, err
+	return strings.TrimSpace(markdown), err
 }
