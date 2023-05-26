@@ -5,12 +5,10 @@ import (
 	"net/http"
 	"strings"
 
-	md "github.com/JohannesKaufmann/html-to-markdown"
 	"github.com/acheong08/DuckDuckGo-API/duckduckgo"
 	"github.com/acheong08/DuckDuckGo-API/typings"
+	md "github.com/jaytaylor/html2text"
 )
-
-var converter = md.NewConverter("", true, nil)
 
 func Search(search typings.Search) ([]typings.Result, error) {
 	return duckduckgo.Get_results(search)
@@ -27,6 +25,9 @@ func Crawl(url string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	markdown, err := converter.ConvertString(string(body))
+	markdown, err := md.FromString(string(body), md.Options{
+		OmitLinks: true,
+		TextOnly:  true,
+	})
 	return strings.TrimSpace(markdown), err
 }
