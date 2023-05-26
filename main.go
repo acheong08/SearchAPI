@@ -30,7 +30,16 @@ func main() {
 			c.JSON(400, gin.H{"error": "rlimit must be an integer"})
 			return
 		}
-		results, err := search.GetSearch(c.Query("query"), slimit_int, rlimit_int)
+		web_query := c.Query("wq")
+		semantic_query := c.Query("sq")
+		if web_query == "" {
+			c.JSON(400, gin.H{"error": "web query must be provided"})
+			return
+		}
+		if semantic_query == "" {
+			semantic_query = web_query
+		}
+		results, err := search.GetSearch(web_query, semantic_query, slimit_int, rlimit_int)
 		if err != nil {
 			c.JSON(500, gin.H{"error": err.Error()})
 			return

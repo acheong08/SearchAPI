@@ -14,9 +14,9 @@ type SearchResults struct {
 	Results []string            `json:"results"`
 }
 
-func GetSearch(query string, source_limit, result_limit int) (*SearchResults, error) {
+func GetSearch(web_query, semantic_query string, source_limit, result_limit int) (*SearchResults, error) {
 	// Search for query
-	duck_results, err := crawler.Search(duck_types.Search{Query: query})
+	duck_results, err := crawler.Search(duck_types.Search{Query: web_query})
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +30,7 @@ func GetSearch(query string, source_limit, result_limit int) (*SearchResults, er
 		return nil, fmt.Errorf("not enough results")
 	}
 	// Semantic search for each snippet
-	semantic_results, err := vectordb.SemanticSearch([]string{query}, snippets, source_limit, false)
+	semantic_results, err := vectordb.SemanticSearch([]string{semantic_query}, snippets, source_limit, false)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func GetSearch(query string, source_limit, result_limit int) (*SearchResults, er
 		}
 	}
 	// Semantic search for each line
-	semantic_results, err = vectordb.SemanticSearch([]string{query}, similar_texts_split, result_limit, false)
+	semantic_results, err = vectordb.SemanticSearch([]string{semantic_query}, similar_texts_split, result_limit, false)
 	if err != nil {
 		return nil, err
 	}
