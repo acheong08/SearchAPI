@@ -33,18 +33,18 @@ func main() {
 			return
 		}
 		// return the 3 most similar snippets
-		similar_results := make([]duck_types.Result, len(semantic_results[0]))
+		sources := make([]duck_types.Result, len(semantic_results[0]))
 		for i, result := range semantic_results[0] {
-			similar_results[i] = duck_results[result.CorpusID]
+			sources[i] = duck_results[result.CorpusID]
 		}
-		c.JSON(200, gin.H{"sources": similar_results})
+		// c.JSON(200, gin.H{"sources": similar_results})
 		// Crawl top 2 results
-		similar_texts := make([]string, len(similar_results))
-		if len(similar_results) < 2 {
-			c.JSON(500, gin.H{"error": "Not enough results", "results": similar_results})
+		similar_texts := make([]string, len(sources))
+		if len(sources) < 2 {
+			c.JSON(500, gin.H{"error": "Not enough results", "results": sources})
 			return
 		}
-		for i, result := range similar_results[:2] {
+		for i, result := range sources[:2] {
 			similar_texts[i], err = crawler.Crawl(result.Link)
 			if err != nil {
 				c.JSON(500, gin.H{"error": err})
@@ -68,11 +68,11 @@ func main() {
 			return
 		}
 		// return the 3 most similar lines
-		test_results := make([]string, len(semantic_results[0]))
+		text_results := make([]string, len(semantic_results[0]))
 		for i, result := range semantic_results[0] {
-			test_results[i] = similar_texts_split[result.CorpusID]
+			text_results[i] = similar_texts_split[result.CorpusID]
 		}
-		c.JSON(200, gin.H{"results": test_results})
+		c.JSON(200, gin.H{"sources": sources, "results": text_results})
 	})
 
 	handler.Run()
