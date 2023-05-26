@@ -25,6 +25,10 @@ func GetSearch(query string, source_limit, result_limit int) (*SearchResults, er
 	for i, result := range duck_results {
 		snippets[i] = result.Snippet
 	}
+	// Check if there are enough results
+	if len(snippets) < source_limit {
+		return nil, fmt.Errorf("not enough results")
+	}
 	// Semantic search for each snippet
 	semantic_results, err := vectordb.SemanticSearch([]string{query}, snippets, source_limit, false)
 	if err != nil {
