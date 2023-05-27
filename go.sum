@@ -8,6 +8,8 @@ github.com/acheong08/cybertron v0.1.3-0.20230526061827-bda4623885f7 h1:NAN+iNsmQ
 github.com/acheong08/cybertron v0.1.3-0.20230526061827-bda4623885f7/go.mod h1:d+tC3pqYEkFUHu5Zic9dE+xdsCo/whYLye8+/au3bw0=
 github.com/acheong08/vectordb v0.0.0-20230526112334-b4b54ec68f76 h1:7lux2kTh2Ds+ySDf+ByLIZuAborvOktQuGssqe+hq0E=
 github.com/acheong08/vectordb v0.0.0-20230526112334-b4b54ec68f76/go.mod h1:yG47MeNocg/4oufqyMfwrfkael4DA9nAUGh0yKC88kI=
+github.com/acheong08/vectordb v0.0.0-20230527163032-83ee790411cd h1:FZl8QUwfRHWgNPT2aQ/iaELQgl9aYNChQ1YL0ybpftE=
+github.com/acheong08/vectordb v0.0.0-20230527163032-83ee790411cd/go.mod h1:yG47MeNocg/4oufqyMfwrfkael4DA9nAUGh0yKC88kI=
 github.com/anaskhan96/soup v1.2.5 h1:V/FHiusdTrPrdF4iA1YkVxsOpdNcgvqT1hG+YtcZ5hM=
 github.com/anaskhan96/soup v1.2.5/go.mod h1:6YnEp9A2yywlYdM4EgDz9NEHclocMepEtku7wg6Cq3s=
 github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6/go.mod h1:grANhF5doyWs3UAsr3K4I6qtAmlQcZDesFNEHPZAzj8=

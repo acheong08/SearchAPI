@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/acheong08/DuckDuckGo-API v0.0.0-20230428065554-4bb99d7a010d
-	github.com/acheong08/vectordb v0.0.0-20230526112334-b4b54ec68f76
+	github.com/acheong08/vectordb v0.0.0-20230527163032-83ee790411cd
 	github.com/gin-gonic/gin v1.9.0
 	github.com/jaytaylor/html2text v0.0.0-20230321000545-74c2419ad056
 )
