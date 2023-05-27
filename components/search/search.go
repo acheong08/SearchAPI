@@ -52,15 +52,7 @@ func GetSearch(web_query, semantic_query string, source_limit, result_limit int)
 		}
 	}
 	// Split texts by \n
-	var similar_texts_split []string
-	for _, text := range similar_texts {
-		for _, line := range strings.Split(text, "\n") {
-			// Get rid of short lines
-			if len(line) > 70 {
-				similar_texts_split = append(similar_texts_split, line)
-			}
-		}
-	}
+	similar_texts_split := split_text(strings.Join(similar_texts, "\n"))
 	// Semantic search for each line
 	semantic_results, err = vectordb.SemanticSearch([]string{semantic_query}, similar_texts_split, result_limit, false)
 	if err != nil {
@@ -72,4 +64,25 @@ func GetSearch(web_query, semantic_query string, source_limit, result_limit int)
 		text_results[i] = similar_texts_split[result.CorpusID]
 	}
 	return &SearchResults{Sources: sources, Results: text_results}, nil
+}
+func split_text(text string) []string {
+	var chunks []string
+	lines := strings.Split(text, "\n")
+
+	var chunk string
+	for _, line := range lines {
+		if len(line) < 50 {
+			continue
+		}
+		if len(chunk)+len(line) > 1000 {
+			chunks = append(chunks, chunk)
+			chunk = ""
+		}
+		if len(chunk)+len(line) > 1200 {
+			chunks = append(chunks, chunk)
+			chunk = ""
+		}
+		chunk += line + "\n"
+	}
+	return chunks
 }
